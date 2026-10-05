@@ -16,31 +16,27 @@ import { fetchUsers } from './features/usersSlice';
 import { cleanPosts, fetchPosts } from './features/postsSlice';
 
 export const App: React.FC = () => {
+  const posts = useAppSelector(state => state.posts.items);
+  const loaded = useAppSelector(state => state.posts.loaded);
+  const postsHasError = useAppSelector(state => state.posts.hasError);
 
-  const posts = useAppSelector(state => state.posts.items)
-  const loaded = useAppSelector(state => state.posts.loaded)
-  const postsHasError = useAppSelector(state => state.posts.hasError)
-
-
-  const dispatch = useAppDispatch()
-  const author = useAppSelector(state => state.author.autor)
-  const selectedPost = useAppSelector(state => state.selectedPost.selectedPost)
-
-
+  const dispatch = useAppDispatch();
+  const author = useAppSelector(state => state.author.autor);
+  const selectedPost = useAppSelector(state => state.selectedPost.selectedPost);
 
   useEffect(() => {
-    dispatch(fetchUsers())
-  }, [dispatch])
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   useEffect(() => {
     // we clear the post when an author is changed
     // not to confuse the user
-    dispatch(setSelctedPost(null))
+    dispatch(setSelctedPost(null));
     dispatch(cleanPosts());
 
     if (author) {
-      dispatch(fetchPosts(author.id))
-    } 
+      dispatch(fetchPosts(author.id));
+    }
   }, [author, dispatch]);
 
   return (
@@ -50,7 +46,10 @@ export const App: React.FC = () => {
           <div className="tile is-parent">
             <div className="tile is-child box is-success">
               <div className="block">
-                <UserSelector value={author} onChange={(user) => dispatch(setAuthor(user))} />
+                <UserSelector
+                  value={author}
+                  onChange={user => dispatch(setAuthor(user))}
+                />
               </div>
 
               <div className="block" data-cy="MainContent">
