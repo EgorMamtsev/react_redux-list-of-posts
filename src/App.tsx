@@ -21,7 +21,7 @@ export const App: React.FC = () => {
   const postsHasError = useAppSelector(state => state.posts.hasError);
 
   const dispatch = useAppDispatch();
-  const author = useAppSelector(state => state.author.autor);
+  const author = useAppSelector(state => state.author.author);
   const selectedPost = useAppSelector(state => state.selectedPost.selectedPost);
 
   useEffect(() => {
